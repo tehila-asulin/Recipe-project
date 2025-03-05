@@ -4,6 +4,7 @@ const express = require("express")
 const cors = require("cors")
 const corsOptions = require("./config/corsOptions")
 const connectDB = require("./config/dbConn")
+const recipeRoutes = require('./routes/recipeRoutes');
 const PORT = process.env.PORT || 7001
 const app = express()
 connectDB()
@@ -15,7 +16,7 @@ app.use(express.static("public"))
 app.get("/",(req,res)=>{
 res.send("this is the home page")
 })
-
+app.use('/',recipeRoutes)
 mongoose.connection.once('open', () => {
     console.log('Connected to MongoDB')
     app.listen(PORT, () => console.log(`Server running on port
